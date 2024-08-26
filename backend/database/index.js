@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const getNextSequence = require('./getNextSequence');
 mongoose.connect("mongodb+srv://admin:Punit1234@cluster0.gzacrdj.mongodb.net/blogginWebsite")
 
 // Create a Schema for Users
@@ -47,14 +48,22 @@ const blogSchema = new mongoose.Schema({
         minLength : 10,
         require : true
     },
-    date:{
-        type:String
-    },
     image:{
         type: String
+    },
+    blogId: { type: Number, unique: true }, 
+},
+{
+    timestamps: { createdAt: true, updatedAt: false } 
+  });
+
+blogSchema.pre('save', async function (next) {
+    if (this.isNew) {
+      this.blogId = await getNextSequence('blogId'); 
     }
-    
-});
+    next();
+  });
+
 
 
 const User = mongoose.model('User', userSchema);
