@@ -41,8 +41,6 @@ router.post('/', authMiddleware ,  async(req, res)=>{
         })
     }
 })
-
-
 router.get('/bulk', async(req, res)=>{
     const blogs = await Blog.find();
     return res.json({

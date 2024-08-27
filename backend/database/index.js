@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const getNextSequence = require('./getNextSequence');
+const { db } = require('./conter');
 mongoose.connect("mongodb+srv://admin:Punit1234@cluster0.gzacrdj.mongodb.net/blogginWebsite")
 
 // Create a Schema for Users
@@ -64,6 +65,7 @@ blogSchema.pre('save', async function (next) {
     next();
   });
 
+  
 
 
 const User = mongoose.model('User', userSchema);
