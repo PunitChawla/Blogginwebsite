@@ -32,7 +32,7 @@ router.post('/', authMiddleware ,  async(req, res)=>{
 
         return res.json({
             msg : "blog created ",
-            id : blog.id
+            id : blog.blogId
         })
     } catch (error) {
         return res.json({

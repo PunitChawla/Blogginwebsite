@@ -20,7 +20,10 @@ export const Publish = () =>{
             }}/>
 
             <div className="flex items-center justify-between px-3 py-2 border-t">
+                {title}
+                {content}
            <button onClick={ async ()=>{
+            
              const response = await axios.post(`${BACKEND_URL}/api/v1/blog` ,{
                 title,
                 content
@@ -31,7 +34,9 @@ export const Publish = () =>{
                 }
             }
           );
+          
             navigate(`/blog/${response.data.id}`)
+
            }
            } type="submit" className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 ">
                Post comment
@@ -39,13 +44,8 @@ export const Publish = () =>{
        </div>
             </div>
         </div>
-        
-
-        
     </div>
-        
 }
-
 
 function TextEditor( {onChange} : {onChange: (e:ChangeEvent<HTMLTextAreaElement>) =>void }){
     return <div>
@@ -56,10 +56,9 @@ function TextEditor( {onChange} : {onChange: (e:ChangeEvent<HTMLTextAreaElement>
            <label  className="sr-only">Your comment</label>
            <textarea onChange={onChange} id="editor" rows={8} className=" focus:outline-none w-full px-0 text-sm text-gray-900 bg-white border-0 " placeholder="Write a comment..." required ></textarea>
        </div>
-      
+       
    </div>
 </form>
-
 
     </div>
 }
