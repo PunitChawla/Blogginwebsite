@@ -63,4 +63,28 @@ router.get('/:id', async(req, res)=>{
         error : " blog not found by this  blog id "
     })
 })
+
+router.delete('/:blogId', async (req, res) => {
+    const { blogId } = req.params;
+  
+    try {
+      // Convert blogId to a number if necessary
+      const blogIdNumber = parseInt(blogId, 10);
+  
+      // Find the blog post by blogId
+      const blogPost = await Blog.findOne({ blogId: blogIdNumber });
+  
+      if (!blogPost) {
+        return res.status(404).json({ message: 'Blog post not found' });
+      }
+  
+      // Delete the blog post
+      await Blog.findByIdAndDelete(blogPost._id);
+  
+      res.status(200).json({ message: 'Blog post deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting blog post:', error);
+      res.status(500).json({ message: 'Error deleting blog post', error });
+    }
+  });
 module.exports = router

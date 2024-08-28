@@ -1,8 +1,11 @@
+
 import { Blog } from "../Hooks"
 import { AppBar } from "./Appbar"
 import { Avatar } from "./BlogCart"
 
+
 export const FullBlog = ({ blog } : {blog:Blog}) =>{
+
     return <div>
         <AppBar/>
         <div className="flex justify-center">
@@ -36,8 +39,11 @@ export const FullBlog = ({ blog } : {blog:Blog}) =>{
                   </div>
                 </div>
             </div>
+            
         </div>
+        
     </div>
         </div>
     </div>
 }
+

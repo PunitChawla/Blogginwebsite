@@ -1,11 +1,13 @@
-import { AppBar } from "../Components/Appbar";
+import { AppBar } from "../Components/AppBar";
 // import { BlogSkeleton } from "../Components/BlogSkeleton";
 import { FullBlog } from "../Components/FullBlog";
 import { FullBlogSkeleton } from "../Components/FullBlogSkeleton";
+import { Todelete } from "../Components/Todelete";
 // import { FullBlogSkeleton } from "../Components/fullblogSkeletion";
 import { useBlog, } from "../Hooks"
 import { useParams } from "react-router-dom";
 export const Blog = () =>{
+
     const { id } = useParams();
 
     const {loading , blog} = useBlog({
@@ -28,5 +30,7 @@ export const Blog = () =>{
     }   
     return <div>
         <FullBlog blog={blog}/>
+       
+        <Todelete id={id}></Todelete>
     </div>
 }
