@@ -64,11 +64,49 @@ router.get('/:id', async(req, res)=>{
     })
 })
 
-router.delete('/:blogId', async (req, res) => {
+
+router.patch('/:blogId', async (req, res) => {
+    const { blogId } = req.params;
+    const responce = blogSchema.safeParse(req.body)
+    if(!responce.success)
+    {
+        return res.json({
+            msg : " please enter a valid input",
+            error : responce.error
+        })
+    }
+    const { title, content } = req.body;  
+   
+    try {
+      
+      const blogIdNumber = parseInt(blogId, 10);
+  
+     
+      const updatedPost = await Blog.findOneAndUpdate(
+        { blogId: blogIdNumber },  
+        { title, content },        
+        { new: true }              
+      );
+  
+      if (!updatedPost) {
+        return res.status(404).json({ message: 'Blog post not found' });
+      }
+  
+      res.status(200).json({ message: 'Blog post updated successfully', updatedPost });
+    } catch (error) {
+
+      console.error('Error updating blog post:', error);
+
+      res.status(500).json({ message: 'Error updating blog post', error });
+    }
+  });
+
+
+router.delete('/:blogId', authMiddleware, async (req, res) => {
     const { blogId } = req.params;
   
     try {
-      // Convert blogId to a number if necessary
+  
       const blogIdNumber = parseInt(blogId, 10);
   
       // Find the blog post by blogId
@@ -78,7 +116,7 @@ router.delete('/:blogId', async (req, res) => {
         return res.status(404).json({ message: 'Blog post not found' });
       }
   
-      // Delete the blog post
+
       await Blog.findByIdAndDelete(blogPost._id);
   
       res.status(200).json({ message: 'Blog post deleted successfully' });
