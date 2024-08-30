@@ -3,6 +3,7 @@ import { AppBar } from "../Components/AppBar";
 import { FullBlog } from "../Components/FullBlog";
 import { FullBlogSkeleton } from "../Components/FullBlogSkeleton";
 import { Todelete } from "../Components/Todelete";
+import { ToUpadte } from "../Components/Toupadate";
 // import { FullBlogSkeleton } from "../Components/fullblogSkeletion";
 import { useBlog, } from "../Hooks"
 import { useParams } from "react-router-dom";
@@ -30,7 +31,10 @@ export const Blog = () =>{
     }   
     return <div>
         <FullBlog blog={blog}/>
-       
-        <Todelete id={id}></Todelete>
+        <div className="flex flex-row-reverse">
+            
+        <Todelete id={id }></Todelete>
+        <ToUpadte id={id}></ToUpadte>
+        </div>
     </div>
 }

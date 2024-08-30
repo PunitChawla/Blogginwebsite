@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom"
 
 export const Todelete = ({ id }: { id:number })=>{
     const navigate = useNavigate();
-    return<div className="flex  flex-row-reverse">
-           {id}
+    return<div className="">
+          
     <div className="pt-10 pr-5">
         <button onClick={async ()=>{
              const confirmDelete = window.confirm("Are you sure you want to delete this post?");
@@ -20,7 +20,6 @@ export const Todelete = ({ id }: { id:number })=>{
          );
          
            navigate(`/blog`)
-
           }} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mr-4">Delete</button>
         </div>
     </div>

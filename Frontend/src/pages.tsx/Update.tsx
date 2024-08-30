@@ -2,12 +2,13 @@ import { ChangeEvent, useState } from "react"
 import { AppBar } from "../Components/AppBar"
 import axios from "axios"
 import { BACKEND_URL } from "../config"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
-export const Publish = () =>{
+export const Update = () =>{
     const navigate = useNavigate();
     const [title , setTitle] = useState("")
     const [content , setContent] = useState("")
+    const { id } = useParams();
     return <div>
         <AppBar/>
        <div className="flex justify-center w-full pt-8">
@@ -23,9 +24,9 @@ export const Publish = () =>{
                 
            <button onClick={ async ()=>{
             
-             const response = await axios.post(`${BACKEND_URL}/api/v1/blog` ,{
+             const response = await axios.patch(`${BACKEND_URL}/api/v1/blog/${id}` ,{
                 title,
-                content
+                content,
             },
             {
                 headers :{
@@ -34,7 +35,7 @@ export const Publish = () =>{
             }
           );
           
-            navigate(`/blog/${response.data.id}`)
+            navigate(`/blog`)
 
            }
            } type="submit" className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 ">
