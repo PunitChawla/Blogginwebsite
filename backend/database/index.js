@@ -41,12 +41,11 @@ const blogSchema = new mongoose.Schema({
     },
     title:{
         type : String,
-        minLength : 5,
         require : true
     },
     content :{
         type : String,
-        minLength : 10,
+       
         require : true
     },
     image:{

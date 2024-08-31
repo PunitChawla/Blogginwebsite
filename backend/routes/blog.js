@@ -8,8 +8,8 @@ router.use(express.json())
 
 
 const blogSchema = zod.object({
-    title : zod.string().min(5),
-    content : zod.string().min(5),
+    title : zod.string(),
+    content : zod.string(),
     image : zod.string().optional(),
 })
 router.post('/', authMiddleware ,  async(req, res)=>{
@@ -104,22 +104,24 @@ router.patch('/:blogId', async (req, res) => {
 
 router.delete('/:blogId', authMiddleware, async (req, res) => {
     const { blogId } = req.params;
-  
+
     try {
   
       const blogIdNumber = parseInt(blogId, 10);
   
       // Find the blog post by blogId
       const blogPost = await Blog.findOne({ blogId: blogIdNumber });
-  
+
       if (!blogPost) {
         return res.status(404).json({ message: 'Blog post not found' });
       }
-  
 
-      await Blog.findByIdAndDelete(blogPost._id);
-  
-      res.status(200).json({ message: 'Blog post deleted successfully' });
+      if( blogPost.userId != req.userId){
+          return res.status(500).json({msg : "you are not the author of this blog "})
+        }
+            await Blog.findByIdAndDelete(blogPost._id); 
+            res.status(200).json({ message: 'Blog post deleted successfully' });
+        
     } catch (error) {
       console.error('Error deleting blog post:', error);
       res.status(500).json({ message: 'Error deleting blog post', error });
