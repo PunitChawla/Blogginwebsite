@@ -22,7 +22,6 @@ export const Publish = () =>{
             <div className="flex items-center justify-between px-3 py-2 border-t">
                 
            <button onClick={ async ()=>{
-            
              const response = await axios.post(`${BACKEND_URL}/api/v1/blog` ,{
                 title,
                 content
@@ -33,10 +32,13 @@ export const Publish = () =>{
                 }
             }
           );
-          
+          try {
             navigate(`/blog/${response.data.id}`)
-
+        } catch (error) {
+            alert("error while creating")
+        }
            }
+
            } type="submit" className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 ">
                Post comment
            </button>

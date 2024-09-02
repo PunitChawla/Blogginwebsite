@@ -33,11 +33,12 @@ export const BlogCart = ({
                     {title}
                 </div>
                 <div className="text-md font-thin pt-1">
-                    {content.slice(0,100) + "..."} 
+                    {/* {content.slice(0,100) + "..."}  */}
+                    {content}
                 </div>
 
                 <div className="text-slate-500 text-sm font-thin pt-3">
-                    {`${Math.ceil(content.length /100)} minutes read`}
+                    {/* {`${Math.ceil(content.length /100)} minutes read`} */}
                 </div>
             </div>
    </div>

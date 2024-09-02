@@ -65,7 +65,7 @@ router.get('/:id', async(req, res)=>{
 })
 
 
-router.patch('/:blogId', async (req, res) => {
+router.patch('/:blogId', authMiddleware , async (req, res) => {
     const { blogId } = req.params;
     const responce = blogSchema.safeParse(req.body)
     if(!responce.success)
@@ -76,12 +76,11 @@ router.patch('/:blogId', async (req, res) => {
         })
     }
     const { title, content } = req.body;  
-   
+
+
     try {
       
       const blogIdNumber = parseInt(blogId, 10);
-  
-     
       const updatedPost = await Blog.findOneAndUpdate(
         { blogId: blogIdNumber },  
         { title, content },        
@@ -91,7 +90,10 @@ router.patch('/:blogId', async (req, res) => {
       if (!updatedPost) {
         return res.status(404).json({ message: 'Blog post not found' });
       }
-  
+      if(updatedPost.userId != req.userId)
+      {
+        return  res.status(500).json({msg : " you are not author of this post "})
+      }
       res.status(200).json({ message: 'Blog post updated successfully', updatedPost });
     } catch (error) {
 

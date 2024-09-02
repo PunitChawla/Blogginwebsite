@@ -5,7 +5,6 @@ const { JWT_SECRET } = require("../config")
 const authMiddleware = (req, res, next) =>{
     const token = req.headers.authorization;
 
-   
     if(!token)
     {
         return res.status(400).json({
@@ -23,7 +22,7 @@ const authMiddleware = (req, res, next) =>{
             error : error
         })
     }
-
+    
 }
 
 module.exports = {

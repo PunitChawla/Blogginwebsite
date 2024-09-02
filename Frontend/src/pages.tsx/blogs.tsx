@@ -29,6 +29,7 @@ export const Blogs = () =>{
     <div className="flex justify-center">
 
             <div >
+                hello 
                 {blogs.map(blog=> 
                 <BlogCart id={blog.blogId} authorName={"Punit" }
                  title={blog.title}     

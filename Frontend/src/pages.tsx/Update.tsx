@@ -3,11 +3,14 @@ import { AppBar } from "../Components/AppBar"
 import axios from "axios"
 import { BACKEND_URL } from "../config"
 import { useNavigate, useParams } from "react-router-dom"
+import { Alert } from "../Components/Alert"
 
 export const Update = () =>{
     const navigate = useNavigate();
     const [title , setTitle] = useState("")
     const [content , setContent] = useState("")
+    const [alertVisible, setAlertVisible] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
     const { id } = useParams();
     return <div>
         <AppBar/>
@@ -23,7 +26,8 @@ export const Update = () =>{
             <div className="flex items-center justify-between px-3 py-2 border-t">
                 
            <button onClick={ async ()=>{
-            
+            try {
+                
              const response = await axios.patch(`${BACKEND_URL}/api/v1/blog/${id}` ,{
                 title,
                 content,
@@ -34,9 +38,12 @@ export const Update = () =>{
                 }
             }
           );
-          
             navigate(`/blog`)
-
+            
+        } catch (error) {
+            setAlertMessage('You are not the author of this blog ');
+            setAlertVisible(true)
+        }
            }
            } type="submit" className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 ">
                Post comment
@@ -44,6 +51,9 @@ export const Update = () =>{
        </div>
             </div>
         </div>
+        {alertVisible && <Alert message={alertMessage} onClose={()=>{
+                    setAlertVisible(false)
+}}/>}
     </div>
 }
 
