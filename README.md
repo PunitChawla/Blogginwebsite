@@ -31,12 +31,7 @@ Make sure you have the following installed on your system:
 
    ```bash
    git clone https://github.com/PunitChawla/Blogginwebsite 
-   cd frontend 
-   npm install 
-   npm run dev 
-   cd backend
-   npm install 
-   node /index.js 
+ 
 
 1. **setup this locally :**
 
